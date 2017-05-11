@@ -1,0 +1,12 @@
+@model Community.Models.Player
+
+@{ 
+  ViewData["Title"] = "Game"; 
+}
+
+<h1>Welcome @Model.UserName</h1>
+
+@section Scripts {
+  <script src="~/lib/p5.js" asp-append-version="true"></script>
+  <script src="~/js/site.js" asp-append-version="true"></script>
+}

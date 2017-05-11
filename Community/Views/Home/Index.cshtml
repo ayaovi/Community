@@ -1,0 +1,17 @@
+﻿@model Community.Models.Player 
+ 
+@{
+     ViewData["Title"] = "Home Page"; 
+}
+
+@using(Html.BeginForm("Game", "Home")) 
+{
+    <div>
+        @Html.LabelFor(model => model.UserName)
+    </div>
+    <div>
+        @Html.TextBoxFor(model => model.UserName)
+    </div>
+
+    <input type="submit" value="Start Game" />
+}

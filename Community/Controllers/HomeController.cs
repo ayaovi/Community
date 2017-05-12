@@ -64,5 +64,11 @@ namespace Community.Controllers
 
       return Json(blocks);
     }
+
+    [HttpGet]
+    public IActionResult CityBlocks()
+    {
+      return Json(City.Blocks);
+    }
   }
 }

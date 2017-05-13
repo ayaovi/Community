@@ -70,5 +70,11 @@ namespace Community.Controllers
     {
       return Json(City.Blocks);
     }
+
+    [HttpGet]
+    public IActionResult Persons()
+    {
+      return Json(City.Persons);
+    }
   }
 }

@@ -8,54 +8,15 @@
  * @version: 
  */
 
-var blocks = [{
-        x: 12,
-        y: 23,
-        w: 20,
-        h: 14,
-        c: "#CC6600"
-    },
-    {
-        x: 112,
-        y: 123,
-        w: 20,
-        h: 14,
-        c: "#CC9900"
-    }
-];
-
-var cityBlocks = [
-    [{
-            x: 0,
-            y: 0
-        },
-        {
-            x: 124,
-            y: 0
-        },
-        {
-            x: 163,
-            y: 73
-        },
-        {
-            x: 82,
-            y: 73
-        },
-        {
-            x: 82,
-            y: 117
-        },
-        {
-            X: 0,
-            Y: 117
-        }
-    ]
-];
+var blocks = [];
+var cityBlocks = [];
+var persons = [];
 
 
 function setup() {
     createCanvas(600, 400);
     retrieveCityBlocks();
+    retrievePersons();
 }
 
 var lastRefreshTimeMs = 0;
@@ -77,15 +38,6 @@ function draw() {
     // stroke(255);
     fill(0);
 
-    // beginShape();
-    // vertex(0, 0);
-    // vertex(124, 0);
-    // vertex(163, 73);
-    // vertex(82, 73);
-    // vertex(82, 117);
-    // vertex(0, 117);
-    // endShape(CLOSE);
-
     cityBlocks.forEach(cityBlock => {
         beginShape();
         cityBlock.forEach(location => {
@@ -93,6 +45,12 @@ function draw() {
             vertex(location.x, location.y);
         });
         endShape(CLOSE);
+    });
+
+
+    persons.forEach(person => {
+        fill(person.colour);
+        ellipse(person.position.x, person.position.y, 10, 10);
     });
 }
 
@@ -110,6 +68,16 @@ function retrieveCityBlocks() {
     httpGet('CityBlocks', 'json', success => {
         console.log('refreshed data');
         cityBlocks = success;
+    }, error => {
+        console.log(error);
+    });
+}
+
+
+function retrievePersons() {
+    httpGet('Persons', 'json', success => {
+        console.log('refreshed data');
+        persons = success;
     }, error => {
         console.log(error);
     });

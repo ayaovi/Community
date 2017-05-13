@@ -25,5 +25,24 @@ namespace Community.Models
       new[] {new Location{X = 348, Y = 320}, new Location{X = 435, Y = 270}, new Location{X = 470, Y = 400}, new Location{X = 348, Y = 400}},
       new[] {new Location{X = 455, Y = 270}, new Location{X = 600, Y = 270}, new Location{X = 600, Y = 400}, new Location{X = 490, Y = 400}}
     };
+
+    public static List<Person> Persons = new List<Person>()
+    {
+      new Person{
+        Name = "Leo",
+        Age = 18,
+        Position = new Location {X = 87, Y = 122},
+      },
+      new Person{
+        Name = "Pete",
+        Age = 23,
+        Position = new Location {X = 338, Y = 200},
+      },
+      new Person{
+        Name = "Yusuf",
+        Age = 17,
+        Position = new Location {X = 236, Y = 260},
+      },
+    };
   }
 }

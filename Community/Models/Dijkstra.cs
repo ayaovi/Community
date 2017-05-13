@@ -20,17 +20,17 @@ namespace Community.Models
       Edges = edges;
     }
 
-    private void Execute(Vertex source)
+    private void _execute(Vertex source)
     {
       _distance.Add(source, 0);
       _unSettledNodes.Add(source);
 
       while (_unSettledNodes.Count > 0)
       {
-        var node = GetMinimum();
+        var node = _getMinimum();
         _settledNodes.Add(node);
         _unSettledNodes.Remove(node);
-        FindMinimalPaths(node);
+        _findMinimalPaths(node);
       }
     }
 
@@ -42,7 +42,7 @@ namespace Community.Models
       _distance.Clear();
       _predecessors.Clear();
 
-      Execute(source);
+      _execute(source);
 
       var path = new List<Vertex>();
       var step = destination;
@@ -62,22 +62,22 @@ namespace Community.Models
       return path;
     }
 
-    private void FindMinimalPaths(Vertex node)
+    private void _findMinimalPaths(Vertex node)
     {
-      var neighbours = GetNeighbours(node);
+      var neighbours = _getNeighbours(node);
 
       foreach (Vertex neighbour in neighbours)
       {
-        if (GetShortestPathTo(neighbour) > GetShortestPathTo(node) + GetCost(node, neighbour))
+        if (_getShortestPathTo(neighbour) > _getShortestPathTo(node) + _getCost(node, neighbour))
         {
-          _distance[neighbour] = GetShortestPathTo(node) + GetCost(node, neighbour);
+          _distance[neighbour] = _getShortestPathTo(node) + _getCost(node, neighbour);
           _predecessors[neighbour] = node;
           _unSettledNodes.Add(neighbour);
         }
       }
     }
 
-    private int GetCost(Vertex node, Vertex neighbour)
+    private int _getCost(Vertex node, Vertex neighbour)
     {
       foreach (Edge edge in Edges)
       {
@@ -89,19 +89,19 @@ namespace Community.Models
       throw new ArgumentException("THis should not happen");
     }
 
-    private List<Vertex> GetNeighbours(Vertex node)
+    private List<Vertex> _getNeighbours(Vertex node)
     {
-      return Edges.Where(edge => edge.Source.Equals(node) && !IsSettled(edge.Destination))
+      return Edges.Where(edge => edge.Source.Equals(node) && !_isSettled(edge.Destination))
                   .Select(edge => edge.Destination)
                   .ToList();
     }
 
-    private bool IsSettled(Vertex node)
+    private bool _isSettled(Vertex node)
     {
       return _settledNodes.Contains(node);
     }
 
-    private Vertex GetMinimum()
+    private Vertex _getMinimum()
     {
       Vertex minimum = null;
 
@@ -109,7 +109,7 @@ namespace Community.Models
       {
         if (minimum != null)
         {
-          if (GetShortestPathTo(vertex) < GetShortestPathTo(minimum))
+          if (_getShortestPathTo(vertex) < _getShortestPathTo(minimum))
           {
             minimum = vertex;
           }
@@ -122,7 +122,7 @@ namespace Community.Models
       return minimum;
     }
 
-    public int GetShortestPathTo(Vertex destination)
+    private int _getShortestPathTo(Vertex destination)
     {
       return _distance.Keys.Contains(destination) ? _distance[destination] : int.MaxValue;
     }
